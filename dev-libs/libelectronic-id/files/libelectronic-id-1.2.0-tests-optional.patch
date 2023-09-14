@@ -1,0 +1,15 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -64,6 +64,7 @@ add_subdirectory(lib/libpcsc-cpp)
+ 
+ # Common testing options.
+ 
++if(BUILD_TESTING)
+ enable_testing()
+ 
+ find_package(GTest REQUIRED)
+@@ -94,3 +95,4 @@ target_link_libraries(${MOCK_TEST_EXE}
+ )
+ 
+ add_test(${MOCK_TEST_EXE} ${MOCK_TEST_EXE})
++endif()

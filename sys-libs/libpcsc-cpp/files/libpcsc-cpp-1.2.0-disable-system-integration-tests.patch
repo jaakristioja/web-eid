@@ -1,0 +1,20 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -85,17 +85,3 @@ target_link_libraries(${MOCK_TEST_EXE}
+ )
+ 
+ add_test(${MOCK_TEST_EXE} ${MOCK_TEST_EXE})
+-
+-# Integration tests that use the real operating system PC/SC service.
+-
+-set(INTEGRATION_TEST_EXE lib${PROJECT_NAME}-test-integration)
+-
+-add_executable(${INTEGRATION_TEST_EXE}
+-  tests/integration/test-${PROJECT_NAME}.cpp
+-)
+-
+-target_link_libraries(${INTEGRATION_TEST_EXE}
+-  ${PROJECT_NAME}
+-  pcsc
+-  GTest::Main
+-)

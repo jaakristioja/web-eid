@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -43,6 +43,8 @@ if(APPLE)
+     add_subdirectory(src/mac)
+ endif()
+ 
++if(BUILD_TESTING)
+ enable_testing()
+ add_subdirectory(tests/mock-ui)
+ add_subdirectory(tests/tests)
++endif()

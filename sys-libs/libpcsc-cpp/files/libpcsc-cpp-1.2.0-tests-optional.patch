@@ -1,0 +1,15 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -63,6 +63,7 @@ endif()
+ 
+ # Common testing options.
+ 
++if(BUILD_TESTING)
+ enable_testing()
+ 
+ find_package(GTest REQUIRED)
+@@ -86,3 +87,4 @@ target_link_libraries(${MOCK_TEST_EXE}
+ target_include_directories(${MOCK_TEST_EXE} PRIVATE ${PCSC_INCLUDE_DIRS})
+ 
+ add_test(${MOCK_TEST_EXE} ${MOCK_TEST_EXE})
++endif()
