@@ -1,6 +1,8 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b616409..165b395 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -85,17 +85,3 @@ target_link_libraries(${MOCK_TEST_EXE}
+@@ -92,21 +92,3 @@ target_link_libraries(${MOCK_TEST_EXE}
  )
  
  add_test(${MOCK_TEST_EXE} ${MOCK_TEST_EXE})
@@ -10,7 +12,11 @@
 -set(INTEGRATION_TEST_EXE lib${PROJECT_NAME}-test-integration)
 -
 -add_executable(${INTEGRATION_TEST_EXE}
--  tests/integration/test-${PROJECT_NAME}.cpp
+-  tests/common/selectcard.hpp
+-  tests/common/verify.hpp
+-  tests/integration/test-get-certificate.cpp
+-  tests/integration/test-authenticate.cpp
+-  tests/integration/test-signing.cpp
 -)
 -
 -target_link_libraries(${INTEGRATION_TEST_EXE}

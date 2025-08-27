@@ -8,16 +8,14 @@ EAPI=8
 
 inherit cmake
 
+GIT_REV='a717afc2f16e02069e527ba4607b34662ae6b1e6'
 DESCRIPTION="Performs cryptographic operations for the Web eID browser extension"
 HOMEPAGE="https://github.com/web-eid/web-eid-app"
-SRC_URI="https://github.com/web-eid/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/web-eid/${PN}/archive/${GIT_REV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="test"
-
-RESTRICT="!test? ( test )"
 
 RDEPEND="
 	dev-libs/libelectronic-id
@@ -29,26 +27,20 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	dev-cpp/magic_enum
-	dev-libs/libelectronic-id[test=]
-
-	test? (
-		dev-libs/libpcsc-mock
-		dev-cpp/gtest
-	)
+	dev-libs/libelectronic-id
 "
 
 PATCHES=(
-	"${FILESDIR}"/${P}-tests-optional.patch
+	"${FILESDIR}"/${P}-no-submodules.patch
 )
+
+S="${WORKDIR}/${PN}-${GIT_REV}"
 
 src_prepare() {
 	cmake_src_prepare
 
-	# Force use of Qt6:
-	sed -i -e 's/QT NAMES Qt6 Qt5/QT NAMES Qt6/' CMakeLists.txt
-
 	# Use system dev-cpp/magic_enum:
-	sed -i -e 's%"magic_enum/magic_enum.hpp"%<magic_enum.hpp>%' \
+	sed -i -e 's%"magic_enum/magic_enum.hpp"%<magic_enum/magic_enum.hpp>%' \
 		src/controller/command-handlers/certificatereader.cpp \
 		src/controller/commands.cpp \
 		src/controller/retriableerror.cpp
@@ -64,24 +56,14 @@ src_prepare() {
 		`'target_link_libraries(web-eid controller ui pcsc-cpp)/' \
 		src/app/CMakeLists.txt
 
-	if use test; then
-		# Add missing link library:
-		sed -i -e 's/target_link_libraries(web-eid-tests /'`
-			`'target_link_libraries(web-eid-tests pcsc-cpp /' \
-			tests/tests/CMakeLists.txt
-
-		# Fix test includes:
-		sed -i \
-			-e 's%"select-certificate-script.hpp"%'`
-			`'<electronic-id/test/select-certificate-script.hpp>%' \
-			-e 's%"atrs.hpp"%<electronic-id/test/atrs.hpp>%' \
-			tests/tests/main.cpp
-	fi
+	# Disable tests
+	cmake_comment_add_subdirectory tests/mock-ui
+	cmake_comment_add_subdirectory tests/tests
 }
 
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_TESTING=$(usex test)
+		-DBUILD_TESTING=OFF
 	)
 	cmake_src_configure
 }
