@@ -1,0 +1,29 @@
+--- a/src/app/CMakeLists.txt	2025-11-19 00:16:21.809191039 +0200
++++ b/src/app/CMakeLists.txt	2025-11-19 00:16:36.738604711 +0200
+@@ -12,6 +12,7 @@
+     PROJECT_VERSION_PATCH=${PROJECT_VERSION_PATCH}
+     PROJECT_VERSION_TWEAK=${PROJECT_VERSION_TWEAK}
+ )
++target_compile_features(web-eid PUBLIC cxx_std_20)
+ target_link_libraries(web-eid controller ui pcsc)
+ 
+ if(WIN32)
+--- a/src/controller/CMakeLists.txt	2025-11-19 00:02:48.742811359 +0200
++++ b/src/controller/CMakeLists.txt	2025-11-19 00:08:36.279121653 +0200
+@@ -46,6 +46,7 @@
+ endif()
+ 
+ set_property(SOURCE application.cpp APPEND PROPERTY COMPILE_DEFINITIONS PROJECT_VERSION="${SEMVER_VERSION_STRING}")
++target_compile_features(controller PUBLIC cxx_std_20)
+ target_include_directories(controller PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+ target_link_libraries(controller
+     electronic-id
+--- a/src/ui/CMakeLists.txt	2025-11-19 00:02:48.735070742 +0200
++++ b/src/ui/CMakeLists.txt	2025-11-19 00:07:44.829751756 +0200
+@@ -21,5 +21,6 @@
+     AUTORCC ON
+     AUTOUIC ON
+ )
++target_compile_features(ui PUBLIC cxx_std_20)
+ target_include_directories(ui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+ target_link_libraries(ui PUBLIC controller Qt6::SvgWidgets)

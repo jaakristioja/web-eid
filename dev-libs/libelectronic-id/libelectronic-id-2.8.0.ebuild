@@ -8,10 +8,9 @@ EAPI=8
 
 inherit cmake
 
-GIT_REV='dfb29b8eef499507b5ea9858ea61a835e48bf308'
 DESCRIPTION="C++ library for performing cryptographic operations with electronic identification (eID) cards."
 HOMEPAGE="https://github.com/web-eid/libelectronic-id"
-SRC_URI="https://github.com/web-eid/${PN}/archive/${GIT_REV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/web-eid/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -35,8 +34,6 @@ PATCHES=(
 	"${FILESDIR}"/${P}-disable-system-integration-tests.patch
 	"${FILESDIR}"/${P}-tests-optional.patch
 )
-
-S="${WORKDIR}/${PN}-${GIT_REV}"
 
 src_prepare() {
 	# Build a shared libraries instead of static libraries:

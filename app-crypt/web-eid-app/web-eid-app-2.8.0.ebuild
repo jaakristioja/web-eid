@@ -8,17 +8,16 @@ EAPI=8
 
 inherit cmake
 
-GIT_REV='a717afc2f16e02069e527ba4607b34662ae6b1e6'
 DESCRIPTION="Performs cryptographic operations for the Web eID browser extension"
 HOMEPAGE="https://github.com/web-eid/web-eid-app"
-SRC_URI="https://github.com/web-eid/${PN}/archive/${GIT_REV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/web-eid/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	dev-libs/libelectronic-id
+	>=dev-libs/libelectronic-id-2.8.0
 	dev-qt/qtbase:6
 	dev-qt/qtsvg:6
 	dev-qt/qttools:6
@@ -31,10 +30,9 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
+	"${FILESDIR}"/${P}-cxx-std-20.patch
 	"${FILESDIR}"/${P}-no-submodules.patch
 )
-
-S="${WORKDIR}/${PN}-${GIT_REV}"
 
 src_prepare() {
 	cmake_src_prepare
