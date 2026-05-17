@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 Jaak Ristioja
+# Copyright (c) 2026 Jaak Ristioja
 #
 # SPDX-License-Identifier: MIT
 #

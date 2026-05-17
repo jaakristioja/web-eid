@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023 Jaak Ristioja
+# Copyright (c) 2026 Jaak Ristioja
 #
 # SPDX-License-Identifier: MIT
 #
@@ -17,7 +17,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	>=dev-libs/libelectronic-id-2.8.0
+	~dev-libs/libelectronic-id-${PV}
 	dev-qt/qtbase:6
 	dev-qt/qtsvg:6
 	dev-qt/qttools:6
